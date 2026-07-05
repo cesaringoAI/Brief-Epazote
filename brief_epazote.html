@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Estratégico — Epazote | Astra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B132B;
+    --lila: #8D9BFF;
+    --lila-soft: #C4CBFF;
+    --lila-bg: #E8EBFF;
+    --gray-med: #E6E7EB;
+    --gray-light: #F3F4F6;
+    --white: #FFFFFF;
+    --text-dark: #1F2937;
+    --text-mid: #6B7280;
+    --green: #34D399;
+    --red: #EF4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gray-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--navy);
+    padding: 3rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 40px;
+    background: var(--gray-light);
+    border-radius: 24px 24px 0 0;
+  }
+  .hero-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+  .hero-logo span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  .hero-logo .star {
+    width: 14px; height: 14px;
+    fill: var(--lila);
+  }
+  .hero-sub {
+    font-size: 11px;
+    color: var(--text-mid);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--lila);
+  }
+  .hero p {
+    font-size: 0.9rem;
+    color: var(--lila-soft);
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ─── PROGRESS ─── */
+  .progress-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-med);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--gray-med);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--lila);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-mid);
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  /* ─── FORM CONTAINER ─── */
+  .form-container {
+    max-width: 640px;
+    margin: -1rem auto 3rem;
+    padding: 0 1rem;
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    margin-bottom: 1.5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.35rem;
+    padding-top: 1.5rem;
+  }
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lila);
+    letter-spacing: 2px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-bottom: 1rem;
+    padding-left: 0;
+  }
+
+  /* ─── QUESTION CARDS ─── */
+  .q-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .q-card:focus-within {
+    border-color: var(--lila);
+    box-shadow: 0 0 0 3px var(--lila-bg);
+  }
+  .q-card label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+  .q-card label .req {
+    color: var(--lila);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+  .q-card .hint {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  .q-card textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid var(--gray-med);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    resize: vertical;
+    transition: border-color 0.2s;
+    background: var(--gray-light);
+    line-height: 1.6;
+  }
+  .q-card textarea:focus {
+    outline: none;
+    border-color: var(--lila);
+    background: var(--white);
+  }
+  .q-card textarea::placeholder {
+    color: #B0B6C3;
+  }
+
+  /* ─── CHECKBOXES ─── */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 0.82rem;
+    color: var(--text-dark);
+  }
+  .checkbox-item:hover {
+    background: var(--gray-light);
+  }
+  .checkbox-item input[type="checkbox"] {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--gray-med);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .checkbox-item input[type="checkbox"]:checked {
+    background: var(--lila);
+    border-color: var(--lila);
+  }
+  .checkbox-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ─── RADIO ─── */
+  .radio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 0.82rem;
+    color: var(--text-dark);
+  }
+  .radio-item:hover {
+    background: var(--gray-light);
+  }
+  .radio-item input[type="radio"] {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--gray-med);
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .radio-item input[type="radio"]:checked {
+    border-color: var(--lila);
+  }
+  .radio-item input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 8px; height: 8px;
+    background: var(--lila);
+    border-radius: 50%;
+  }
+
+  /* ─── SUBMIT ─── */
+  .submit-section {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+  .btn-submit {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    padding: 14px 48px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-submit:hover {
+    background: #1a2347;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(11,19,43,0.25);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .confidential {
+    max-width: 480px;
+    margin: 1rem auto 0;
+    font-size: 11px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  /* ─── SUCCESS ─── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .success-screen.active { display: block; }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--lila-bg);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .success-icon svg { width: 28px; height: 28px; fill: var(--lila); }
+  .success-screen h2 {
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .success-screen p {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .success-screen .astra-footer {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: var(--text-mid);
+    letter-spacing: 2px;
+  }
+
+  /* ─── ERROR ─── */
+  .field-error {
+    border-color: var(--red) !important;
+  }
+  .error-msg {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+  }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 200;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+    font-size: 11px;
+    color: var(--text-mid);
+  }
+  .footer a { color: var(--lila); text-decoration: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 480px) {
+    .hero { padding: 2rem 1rem 3rem; }
+    .q-card { padding: 1.2rem; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── REDUCED MOTION ─── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-logo">
+    <span>astra</span>
+    <svg class="star" viewBox="0 0 24 24"><path d="M12 0 L14 9 L24 12 L14 15 L12 24 L10 15 L0 12 L10 9 Z"/></svg>
+  </div>
+  <p class="hero-sub">CONSULTORÍA ESTRATÉGICA</p>
+  <h1>Brief Estratégico<br><em>Epazote</em></h1>
+  <p>Cada respuesta nos acerca a una estrategia precisa. No hay respuestas incorrectas — lo más valioso es la honestidad y el detalle.</p>
+</header>
+
+<!-- ════════════════════════════════════ -->
+<!-- PROGRESS BAR -->
+<!-- ════════════════════════════════════ -->
+<div class="progress-wrap" id="progressWrap" style="display:none;">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 / 16</div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- FORM -->
+<!-- ════════════════════════════════════ -->
+<div class="form-container" id="formContainer">
+<form id="briefForm" novalidate>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Contexto y trayectoria</span>
+    </div>
+    <p class="section-desc">Queremos entender de dónde viene Epazote y dónde se encuentra hoy.</p>
+
+    <div class="q-card">
+      <label for="q1">1. Antecedentes y escenario actual <span class="req">*</span></label>
+      <p class="hint">Resume brevemente la trayectoria de la marca y dónde se encuentra al día de hoy.</p>
+      <textarea id="q1" name="q1" required placeholder="Ej. Epazote abrió en 2019 en Saltillo como..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q2">2. ¿Cuál es el principal problema que debemos resolver? <span class="req">*</span></label>
+      <p class="hint">Un problema no es igual a un síntoma. Por ejemplo, "no vender" es un síntoma de que quizás no nos conocen lo suficiente en el mercado. ¿Cuál es el problema de fondo?</p>
+      <textarea id="q2" name="q2" required placeholder="Describe el problema central..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Objetivos</span>
+    </div>
+    <p class="section-desc">Necesitamos entender qué quiere lograr Epazote en tres niveles.</p>
+
+    <div class="q-card">
+      <label for="q3">3. Objetivos de negocio <span class="req">*</span></label>
+      <p class="hint">Ej. Incrementar las ventas un 15% vs año anterior, ganar participación de mercado, abrir una segunda sucursal, etc.</p>
+      <textarea id="q3" name="q3" required placeholder="¿Qué debe lograr el negocio?"></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q4">4. Objetivos de comunicación <span class="req">*</span></label>
+      <p class="hint">Ej. Ser asociados como el mejor restaurante de cocina mexicana contemporánea en Saltillo.</p>
+      <textarea id="q4" name="q4" required placeholder="¿Cómo quieren ser percibidos?"></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q5">5. Objetivos de marketing <span class="req">*</span></label>
+      <p class="hint">Ej. Aumentar interacciones en redes sociales, incrementar alcance, generar tráfico a reservaciones, etc.</p>
+      <textarea id="q5" name="q5" required placeholder="¿Qué métricas quieren mover?"></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Audiencia y mercado</span>
+    </div>
+    <p class="section-desc">A quién le habla Epazote y contra quién compite.</p>
+
+    <div class="q-card">
+      <label for="q6">6. Audiencias clave <span class="req">*</span></label>
+      <p class="hint">Define con el mayor detalle quiénes son tus tipos de cliente — primarios y secundarios. Edad, estilo de vida, intereses, hábitos de consumo.</p>
+      <textarea id="q6" name="q6" required placeholder="Describe a tus clientes ideales..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q7">7. Oferta comercial <span class="req">*</span></label>
+      <p class="hint">¿Qué productos y servicios comercializan? ¿Qué distingue la experiencia de Epazote?</p>
+      <textarea id="q7" name="q7" required placeholder="Describe tu oferta y diferenciadores..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q8">8. Principales competidores <span class="req">*</span></label>
+      <p class="hint">¿Quiénes son las marcas o restaurantes con los que compiten de manera directa e indirecta?</p>
+      <textarea id="q8" name="q8" required placeholder="Lista tus competidores directos e indirectos..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Esfuerzos previos</span>
+    </div>
+    <p class="section-desc">Lo que se ha hecho antes nos ayuda a no repetir lo que no funcionó y a potenciar lo que sí.</p>
+
+    <div class="q-card">
+      <label for="q9">9. ¿Se han hecho esfuerzos de medios pagados (pauta)?</label>
+      <p class="hint">Si sí, describe el porcentaje asignado por medio y los resultados. Si no, indica "No".</p>
+      <textarea id="q9" name="q9" placeholder="Describe tu experiencia con pauta pagada..."></textarea>
+    </div>
+
+    <div class="q-card">
+      <label for="q10">10. ¿Se han hecho esfuerzos creativos?</label>
+      <p class="hint">Describe alguna campaña o comunicación exitosa y con base en qué la consideras exitosa.</p>
+      <textarea id="q10" name="q10" placeholder="¿Qué ha funcionado creativamente?"></textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Estrategia de contenido</span>
+    </div>
+    <p class="section-desc">Canales, mensajes e insights para la estrategia.</p>
+
+    <div class="q-card">
+      <label>11. ¿En qué plataformas quieren tener presencia?</label>
+      <p class="hint">Selecciona todas las que apliquen.</p>
+      <div class="checkbox-grid">
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="Facebook"> Facebook</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="Instagram"> Instagram</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="TikTok"> TikTok</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="YouTube"> YouTube</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="X (Twitter)"> X (Twitter)</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="Google Maps"> Google Maps</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="Sitio web"> Sitio web propio</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="WhatsApp Business"> WhatsApp Business</label>
+        <label class="checkbox-item"><input type="checkbox" name="q11" value="Otro"> Otro</label>
+      </div>
+    </div>
+
+    <div class="q-card">
+      <label for="q12">12. Mensajes clave <span class="req">*</span></label>
+      <p class="hint">¿Qué atributos o mensajes deberíamos reforzar con mayor frecuencia? ¿Qué quieres que la gente piense cuando piensa en Epazote?</p>
+      <textarea id="q12" name="q12" required placeholder="Los mensajes que definen a Epazote..."></textarea>
+      <p class="error-msg">Este campo es requerido.</p>
+    </div>
+
+    <div class="q-card">
+      <label for="q13">13. Insights sobre el comportamiento de sus clientes</label>
+      <p class="hint">¿Existe algún hallazgo sobre cómo se comportan, qué valoran, qué los motiva a venir o a recomendar?</p>
+      <textarea id="q13" name="q13" placeholder="Cualquier dato, observación o patrón es útil..."></textarea>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Temporalidad y presupuesto</span>
+    </div>
+    <p class="section-desc">Información operativa para planear la estrategia.</p>
+
+    <div class="q-card">
+      <label for="q14">14. Fechas clave del año</label>
+      <p class="hint">¿Cuáles son los meses importantes o temporalidades? Ej. Día de la Madre, aniversario del restaurante, Semana Santa, temporada navideña.</p>
+      <textarea id="q14" name="q14" placeholder="Las fechas que importan para el negocio..."></textarea>
+    </div>
+
+    <div class="q-card">
+      <label>15. Presupuesto mensual para pauta en redes sociales</label>
+      <p class="hint">Se recomiendan mínimo $1,000 MXN mensuales.</p>
+      <div class="radio-list">
+        <label class="radio-item"><input type="radio" name="q15" value="Menos de $1,000 MXN"> Menos de $1,000 MXN</label>
+        <label class="radio-item"><input type="radio" name="q15" value="$1,000 – $3,000 MXN"> $1,000 – $3,000 MXN</label>
+        <label class="radio-item"><input type="radio" name="q15" value="$3,000 – $5,000 MXN"> $3,000 – $5,000 MXN</label>
+        <label class="radio-item"><input type="radio" name="q15" value="$5,000 – $10,000 MXN"> $5,000 – $10,000 MXN</label>
+        <label class="radio-item"><input type="radio" name="q15" value="Más de $10,000 MXN"> Más de $10,000 MXN</label>
+        <label class="radio-item"><input type="radio" name="q15" value="Aún no definido"> Aún no definido</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">Comentarios finales</span>
+    </div>
+
+    <div class="q-card">
+      <label for="q16">16. ¿Algo más que debamos saber?</label>
+      <p class="hint">Cualquier detalle, contexto, restricción o idea que consideres relevante para el proyecto.</p>
+      <textarea id="q16" name="q16" placeholder="Espacio libre..."></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button type="submit" class="btn-submit" id="btnSubmit">Enviar brief</button>
+    <p class="confidential">Toda la información es confidencial. No se compartirá con terceras partes.</p>
+  </div>
+
+</form>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- SUCCESS SCREEN -->
+<!-- ════════════════════════════════════ -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 0 L14 9 L24 12 L14 15 L12 24 L10 15 L0 12 L10 9 Z"/></svg>
+  </div>
+  <h2>Brief recibido</h2>
+  <p>Gracias por tomarte el tiempo de completar cada respuesta. Tu información ya está con el equipo de Astra y la usaremos para construir una estrategia a la medida de Epazote.</p>
+  <p style="margin-top:1rem; font-weight:600; color:var(--navy);">Nos pondremos en contacto contigo pronto.</p>
+  <p class="astra-footer">ASTRA · CONSULTORÍA ESTRATÉGICA</p>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ════════════════════════════════════ -->
+<footer class="footer">
+  <p>Astra · Consultoría Estratégica — Julio 2026</p>
+  <p style="margin-top:4px;">Estrategia que guía. Resultados que trascienden.</p>
+</footer>
+
+<script>
+// ══════════════════════════════════════════
+// CONFIG — Replace with your deployed Apps Script URL
+// ══════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0TOTxfGfA1PlVu6uWCpMwdyda8pA02l16I__PLo4tcbKcr3tsxeGI7Tf3FETsUTmGqw/exec';
+
+// ══════════════════════════════════════════
+// PROGRESS TRACKING
+// ══════════════════════════════════════════
+const form = document.getElementById('briefForm');
+const progressWrap = document.getElementById('progressWrap');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const totalQuestions = 16;
+
+function updateProgress() {
+  let filled = 0;
+  for (let i = 1; i <= 16; i++) {
+    const el = document.getElementById('q' + i);
+    if (el && el.value.trim()) { filled++; continue; }
+    // Checkboxes (q11)
+    if (i === 11) {
+      const checked = document.querySelectorAll('input[name="q11"]:checked');
+      if (checked.length > 0) filled++;
+      continue;
+    }
+    // Radio (q15)
+    if (i === 15) {
+      const checked = document.querySelector('input[name="q15"]:checked');
+      if (checked) filled++;
+      continue;
+    }
+  }
+  const pct = Math.round((filled / totalQuestions) * 100);
+  progressFill.style.width = pct + '%';
+  progressLabel.textContent = filled + ' / ' + totalQuestions;
+}
+
+// Show progress bar on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    progressWrap.style.display = e.isIntersecting ? 'none' : 'flex';
+  });
+}, { threshold: 0 });
+observer.observe(document.querySelector('.hero'));
+
+// Listen for input changes
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+
+// ══════════════════════════════════════════
+// FORM SUBMISSION
+// ══════════════════════════════════════════
+function showToast(msg, duration = 3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Validate required fields
+  let valid = true;
+  form.querySelectorAll('textarea[required]').forEach(ta => {
+    const errMsg = ta.parentElement.querySelector('.error-msg');
+    if (!ta.value.trim()) {
+      ta.classList.add('field-error');
+      if (errMsg) errMsg.style.display = 'block';
+      valid = false;
+    } else {
+      ta.classList.remove('field-error');
+      if (errMsg) errMsg.style.display = 'none';
+    }
+  });
+
+  if (!valid) {
+    const first = form.querySelector('.field-error');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast('Completa los campos requeridos');
+    return;
+  }
+
+  // Collect data
+  const data = {};
+  for (let i = 1; i <= 16; i++) {
+    const el = document.getElementById('q' + i);
+    if (el) {
+      data['q' + i] = el.value.trim();
+      continue;
+    }
+    if (i === 11) {
+      const checked = Array.from(document.querySelectorAll('input[name="q11"]:checked'));
+      data.q11 = checked.map(c => c.value).join(', ');
+      continue;
+    }
+    if (i === 15) {
+      const sel = document.querySelector('input[name="q15"]:checked');
+      data.q15 = sel ? sel.value : '';
+      continue;
+    }
+  }
+  data.timestamp = new Date().toLocaleString('es-MX', { timeZone: 'America/Monterrey' });
+
+  // Submit
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const resp = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    // no-cors always gives opaque response, so we assume success
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch (err) {
+    showToast('Error al enviar. Intenta de nuevo.', 4000);
+    btn.disabled = false;
+    btn.textContent = 'Enviar brief';
+  }
+});
+
+// Clear error on input
+form.querySelectorAll('textarea[required]').forEach(ta => {
+  ta.addEventListener('input', () => {
+    if (ta.value.trim()) {
+      ta.classList.remove('field-error');
+      const errMsg = ta.parentElement.querySelector('.error-msg');
+      if (errMsg) errMsg.style.display = 'none';
+    }
+  });
+});
+</script>
+</body>
+</html>
